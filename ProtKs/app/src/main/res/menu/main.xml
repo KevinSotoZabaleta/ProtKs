@@ -6,4 +6,19 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_guardar"
+        android:orderInCategory="100"
+        android:title="Guardar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_modificar"
+        android:orderInCategory="100"
+        android:title="Modificar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_eliminar"
+        android:orderInCategory="100"
+        android:title="Listar"
+        app:showAsAction="never" />
 </menu>

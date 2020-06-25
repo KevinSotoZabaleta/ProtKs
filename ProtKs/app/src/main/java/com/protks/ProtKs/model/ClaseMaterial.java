@@ -1,12 +1,12 @@
 package com.protks.ProtKs.model;
 
-public class Material {
+public class ClaseMaterial {
 
     public String  id;
     public String nombre;
     public int precio;
 
-    public Material(String id, String nombre, int precio) {
+    public ClaseMaterial(String id, String nombre, int precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;

@@ -1,12 +1,14 @@
 package com.protks.ProtKs;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.protks.ProtKs.ui.material.Material;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
