@@ -42,15 +42,25 @@ public class Material extends Fragment {
         return view;
     }
     public boolean onOptionsItemSelected(MenuItem item){
+
         String v_nombre = nombre.getText().toString();
+        String v_precio = precio.getText().toString();
+
         switch (item.getItemId()){
             case R.id.action_settings:{
                 Toast.makeText(getActivity(),"Settings", Toast.LENGTH_LONG).show();
                 break;
             }
+
+
             case R.id.action_guardar:{
-                Toast.makeText(getActivity(), "Guardar", Toast.LENGTH_LONG).show();
-                break;
+                if(v_nombre.equals("") || v_precio.equals("")){
+                    validacion();
+                }else{
+                    Toast.makeText(getActivity(), "Guardar", Toast.LENGTH_LONG).show();
+                    limpiarCajar();
+                    break;
+                }
             }
             case R.id.action_modificar:{
                 Toast.makeText(getActivity(), "Modificar", Toast.LENGTH_LONG).show();
@@ -64,6 +74,24 @@ public class Material extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void limpiarCajar() {
+        nombre.setText("");
+        precio.setText("");
+    }
+
+    private void validacion() {
+        String v_nombre = nombre.getText().toString();
+        String v_precio = precio.getText().toString();
+
+        if(v_nombre.equals("")){
+            nombre.setError("Required");
+        }
+        if(v_precio.equals("")){
+            precio.setError("Required");
+        }
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
