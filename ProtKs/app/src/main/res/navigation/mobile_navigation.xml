@@ -28,4 +28,9 @@
         android:name="com.protks.ProtKs.ui.material.Material"
         android:label="material_fragment"
         tools:layout="@layout/material_fragment" />
+    <fragment
+        android:id="@+id/listaFragment"
+        android:name="com.protks.ProtKs.ui.ListaMaterial.ListaFragment"
+        android:label="lista_fragment"
+        tools:layout="@layout/lista_fragment" />
 </navigation>

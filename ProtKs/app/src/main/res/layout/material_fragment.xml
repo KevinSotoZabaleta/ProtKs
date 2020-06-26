@@ -10,34 +10,37 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="Hello"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="74dp" />
 
     <LinearLayout
-        android:layout_width="375dp"
-        android:layout_height="236dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="382dp"
+        android:layout_height="240dp"
         android:layout_marginStart="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272">
+        app:layout_constraintVertical_bias="0.089">
 
         <EditText
             android:id="@+id/et_nombre"
             android:layout_width="match_parent"
             android:layout_height="79dp"
-            android:hint="Ingrese nombre"
             android:ems="10"
+            android:hint="Ingrese nombre"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/et_precio"
             android:layout_width="match_parent"
             android:layout_height="78dp"
-            android:hint="Ingrese precio"
             android:ems="10"
+            android:hint="Ingrese precio"
             android:inputType="number" />
 
         <Button
@@ -46,5 +49,18 @@
             android:layout_height="wrap_content"
             android:text="Guardar" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/lista_material2"
+        android:layout_width="395dp"
+        android:layout_height="298dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

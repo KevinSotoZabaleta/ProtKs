@@ -20,5 +20,9 @@
             android:id="@+id/material"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Material" />
+        <item
+            android:id="@+id/listaFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Lista de materiales" />
     </group>
 </menu>
