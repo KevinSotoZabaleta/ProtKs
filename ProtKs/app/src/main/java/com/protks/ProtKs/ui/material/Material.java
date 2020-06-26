@@ -26,6 +26,8 @@ public class Material extends Fragment {
     EditText nombre, precio;
     Button guardar;
 
+
+
     public static Material newInstance() {
         return new Material();
     }
@@ -39,8 +41,24 @@ public class Material extends Fragment {
         precio = (EditText)view.findViewById(R.id.et_precio);
         guardar = (Button)view.findViewById(R.id.bt_guardar);
 
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String v_nombre = nombre.getText().toString();
+                String v_precio = precio.getText().toString();
+
+                if(v_nombre.equals("") || v_precio.equals("")){
+                    validacion();
+                }else{
+                    Toast.makeText(getActivity(), "Guardar", Toast.LENGTH_LONG).show();
+                    limpiarCajar();
+                }
+            }
+        });
+
         return view;
     }
+    /**
     public boolean onOptionsItemSelected(MenuItem item){
 
         String v_nombre = nombre.getText().toString();
@@ -74,6 +92,7 @@ public class Material extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+     */
 
     private void limpiarCajar() {
         nombre.setText("");
