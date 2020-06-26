@@ -17,7 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.protks.ProtKs.R;
+import com.protks.ProtKs.model.ClaseMaterial;
+
+import java.util.UUID;
 
 public class Material extends Fragment {
 
@@ -26,7 +32,8 @@ public class Material extends Fragment {
     EditText nombre, precio;
     Button guardar;
 
-
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     public static Material newInstance() {
         return new Material();
@@ -37,9 +44,13 @@ public class Material extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.material_fragment, container, false);
 
+        inicializarFirebase();
+
+
         nombre = (EditText)view.findViewById(R.id.et_nombre);
         precio = (EditText)view.findViewById(R.id.et_precio);
         guardar = (Button)view.findViewById(R.id.bt_guardar);
+
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +61,11 @@ public class Material extends Fragment {
                 if(v_nombre.equals("") || v_precio.equals("")){
                     validacion();
                 }else{
+                    ClaseMaterial cm = new ClaseMaterial();
+                    cm.setId(UUID.randomUUID().toString());
+                    cm.setNombre(v_nombre);
+                    cm.setPrecio(v_precio);
+                    databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
                     Toast.makeText(getActivity(), "Guardar", Toast.LENGTH_LONG).show();
                     limpiarCajar();
                 }
@@ -58,6 +74,13 @@ public class Material extends Fragment {
 
         return view;
     }
+
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(getActivity());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+    }
+
     /**
     public boolean onOptionsItemSelected(MenuItem item){
 

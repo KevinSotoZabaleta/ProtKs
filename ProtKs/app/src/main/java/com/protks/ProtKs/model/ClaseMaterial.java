@@ -2,11 +2,11 @@ package com.protks.ProtKs.model;
 
 public class ClaseMaterial {
 
-    public String  id;
-    public String nombre;
-    public int precio;
+    private String  id;
+    private String nombre;
+    private String precio;
 
-    public ClaseMaterial(String id, String nombre, int precio) {
+    public ClaseMaterial() {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -28,11 +28,11 @@ public class ClaseMaterial {
         this.nombre = nombre;
     }
 
-    public int getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
