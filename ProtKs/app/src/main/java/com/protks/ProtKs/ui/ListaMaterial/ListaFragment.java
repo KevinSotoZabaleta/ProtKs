@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,17 +25,18 @@ import com.protks.ProtKs.model.ClaseMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ListaFragment extends Fragment {
 
-    private List<ClaseMaterial> listaClaMate = new ArrayList<ClaseMaterial>();
-    ArrayAdapter<ClaseMaterial> arrayAdapterClaseMaterial;
+    private List<ClaseMaterial> listaClaMate2 = new ArrayList<ClaseMaterial>();
+    ArrayAdapter<ClaseMaterial> arrayAdapterClaseMaterial2;
 
     private ListaViewModel mViewModel;
-    ListView listaFire;
+    ListView listaFire2;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
 
     public static ListaFragment newInstance() {
         return new ListaFragment();
@@ -44,23 +46,29 @@ public class ListaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lista_fragment, container, false);
-        listaFire = (ListView)view.findViewById(R.id.lista_material);
+        listaFire2 = (ListView)view.findViewById(R.id.lista_material);
+        inicializarFirebase();
         listarDatos();
 
         return view;
     }
+    private void inicializarFirebase() {
+        FirebaseApp.initializeApp(getActivity());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference2 = firebaseDatabase.getReference();
+    }
 
     private void listarDatos() {
-        databaseReference.child("ClaseMaterial").addValueEventListener(new ValueEventListener() {
+        databaseReference2.child("ClaseMaterial").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listaClaMate.clear();
+                listaClaMate2.clear();
                 for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
-                    ClaseMaterial p = objSnaptshot.getValue(ClaseMaterial.class);
-                    listaClaMate.add(p);
+                    ClaseMaterial cm = objSnaptshot.getValue(ClaseMaterial.class);
+                    listaClaMate2.add(cm);
 
-                    arrayAdapterClaseMaterial = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, listaClaMate);
-                    listaFire.setAdapter(arrayAdapterClaseMaterial);
+                    arrayAdapterClaseMaterial2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, listaClaMate2);
+                    listaFire2.setAdapter(arrayAdapterClaseMaterial2);
                 }
             }
 
