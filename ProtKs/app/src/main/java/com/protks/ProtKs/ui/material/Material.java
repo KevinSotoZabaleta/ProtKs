@@ -13,22 +13,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.protks.ProtKs.R;
 import com.protks.ProtKs.model.ClaseMaterial;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class Material extends Fragment {
 
     private MaterialViewModel mViewModel;
 
+    private List<ClaseMaterial> listaClaMate = new ArrayList<ClaseMaterial>();
+    ArrayAdapter<ClaseMaterial> arrayAdapterClaseMaterial;
+
+    ClaseMaterial materialSelected;
+    // COMPONENTES XML
+    ListView listaFire;
     EditText nombre, precio;
     Button guardar;
 
@@ -45,10 +59,13 @@ public class Material extends Fragment {
         View view =  inflater.inflate(R.layout.material_fragment, container, false);
 
         inicializarFirebase();
+        listarDatos();
+
 
         nombre = (EditText)view.findViewById(R.id.et_nombre);
         precio = (EditText)view.findViewById(R.id.et_precio);
         guardar = (Button)view.findViewById(R.id.bt_guardar);
+        listaFire = (ListView)view.findViewById(R.id.lista_material2);
 
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,11 +86,21 @@ public class Material extends Fragment {
                 }
             }
         });
+
+        listaFire .setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                materialSelected = (ClaseMaterial) parent.getItemAtPosition(position);
+                //Material.nombre.setText(materialSelected.getNombre());
+            }
+        });
+
+
         return view;
     }
     
 
-    //METODO PARA LLAMAR E INICIALIZAR LA BASE DE DATOS DE FIREBASE
+        //METODO PARA LLAMAR E INICIALIZAR LA BASE DE DATOS DE FIREBASE
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(getActivity());
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -88,13 +115,32 @@ public class Material extends Fragment {
     private void validacion() {
         String v_nombre = nombre.getText().toString();
         String v_precio = precio.getText().toString();
-
         if(v_nombre.equals("")){
             nombre.setError("Required");
         }
         if(v_precio.equals("")){
             precio.setError("Required");
         }
+    }
+
+    private void listarDatos() {
+        databaseReference.child("ClaseMaterial").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listaClaMate.clear();
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()) {
+                    ClaseMaterial cm = objSnaptshot.getValue(ClaseMaterial.class);
+                    listaClaMate.add(cm);
+
+                    arrayAdapterClaseMaterial = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, listaClaMate);
+                    listaFire.setAdapter(arrayAdapterClaseMaterial);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
