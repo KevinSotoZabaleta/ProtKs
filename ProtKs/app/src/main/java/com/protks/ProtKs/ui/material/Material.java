@@ -2,6 +2,8 @@ package com.protks.ProtKs.ui.material;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -94,24 +96,50 @@ public class Material extends Fragment {
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClaseMaterial cm = new ClaseMaterial();
-                cm.setId(materialSelected.getId());
-                cm.setNombre(nombre.getText().toString().trim());
-                cm.setPrecio(precio.getText().toString().trim());
-                databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
-                Toast.makeText(getActivity(), "Actualizado", Toast.LENGTH_LONG).show();
-                limpiarCajar();
+                new AlertDialog.Builder(getActivity()).setTitle("Actualizar").setMessage("¿Seguro quieres actualizar?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ClaseMaterial cm = new ClaseMaterial();
+                                cm.setId(materialSelected.getId());
+                                cm.setNombre(nombre.getText().toString().trim());
+                                cm.setPrecio(precio.getText().toString().trim());
+                                databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
+                                Toast.makeText(getActivity(), "Actualizado", Toast.LENGTH_LONG).show();
+                                limpiarCajar();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                limpiarCajar();
+                                dialog.cancel();
+                            }
+                        }).show();
             }
         });
         //EVENTO ONCLICK DEL BOTON ELIMINAR
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClaseMaterial cm = new ClaseMaterial();
-                cm.setId(materialSelected.getId());
-                databaseReference.child("ClaseMaterial").child(cm.getId()).removeValue();
-                Toast.makeText(getActivity(), "Eliminado", Toast.LENGTH_LONG).show();
-                limpiarCajar();
+                 new AlertDialog.Builder(getActivity()).setTitle("Eliminar").setMessage("¿Seguro quieres eliminar?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ClaseMaterial cm = new ClaseMaterial();
+                                cm.setId(materialSelected.getId());
+                                databaseReference.child("ClaseMaterial").child(cm.getId()).removeValue();
+                                Toast.makeText(getActivity(), "Eliminado", Toast.LENGTH_LONG).show();
+                                limpiarCajar();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                limpiarCajar();
+                                dialog.cancel();
+                            }
+                        }).show();
             }
         });
 
@@ -123,13 +151,11 @@ public class Material extends Fragment {
                 precio.setText(materialSelected.getPrecio());
             }
         });
-
-
         return view;
     }
-    
 
-        //METODO PARA LLAMAR E INICIALIZAR LA BASE DE DATOS DE FIREBASE
+
+    //METODO PARA LLAMAR E INICIALIZAR LA BASE DE DATOS DE FIREBASE
     private void inicializarFirebase() {
         FirebaseApp.initializeApp(getActivity());
         firebaseDatabase = FirebaseDatabase.getInstance();
