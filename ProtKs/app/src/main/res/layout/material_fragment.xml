@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,45 +8,59 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="344dp"
-        android:layout_height="230dp"
+        android:layout_width="381dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:layout_constraintVertical_bias="0.089">
 
         <EditText
             android:id="@+id/et_nombre"
             android:layout_width="match_parent"
-            android:layout_height="79dp"
+            android:layout_height="69dp"
             android:ems="10"
             android:hint="Ingrese nombre"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColorHint="#FFFFFF" />
 
         <EditText
             android:id="@+id/et_precio"
             android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_height="69dp"
             android:ems="10"
             android:hint="Ingrese precio"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColorHint="#FFFFFF" />
 
         <Button
             android:id="@+id/bt_guardar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar" />
+            android:background="@drawable/borde_interno"
+            android:text="@string/boton_guardar" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lista_material2"
         android:layout_width="194dp"
         android:layout_height="302dp"
-        android:layout_marginTop="4dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/borde"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +68,16 @@
 
     <Button
         android:id="@+id/bt_actualizar"
-        android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="56dp"
-        android:text="Actualizar"
+        android:layout_toEndOf="@+id/lista_material2"
+        android:background="@drawable/borde_interno"
+        android:text="@string/boton_actualizar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/lista_material2"
@@ -67,15 +85,19 @@
 
     <Button
         android:id="@+id/bt_eliminar"
-        android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_actualizar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="56dp"
-        android:text="eliminar"
+        android:layout_toEndOf="@+id/lista_material2"
+        android:background="@drawable/borde_interno"
+        android:text="@string/boton_eliminar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lista_material2"
         app:layout_constraintTop_toBottomOf="@+id/bt_actualizar" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
