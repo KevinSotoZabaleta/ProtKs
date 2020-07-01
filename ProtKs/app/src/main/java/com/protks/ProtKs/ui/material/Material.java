@@ -44,7 +44,7 @@ public class Material extends Fragment {
     // COMPONENTES XML
     ListView listaFire;
     EditText nombre, precio;
-    Button guardar;
+    Button guardar,actualizar,eliminar;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -65,8 +65,12 @@ public class Material extends Fragment {
         nombre = (EditText)view.findViewById(R.id.et_nombre);
         precio = (EditText)view.findViewById(R.id.et_precio);
         guardar = (Button)view.findViewById(R.id.bt_guardar);
+        actualizar = (Button)view.findViewById(R.id.bt_actualizar);
+        eliminar = (Button)view.findViewById(R.id.bt_eliminar);
         listaFire = (ListView)view.findViewById(R.id.lista_material2);
 
+
+        //EVENTO ONCLICK DEL BOTON GUARDAR
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,11 +91,26 @@ public class Material extends Fragment {
             }
         });
 
+        //EVENTO ONCLICK DEL BOTON ACTUALIZAR
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClaseMaterial cm = new ClaseMaterial();
+                cm.setId(materialSelected.getId());
+                cm.setNombre(nombre.getText().toString().trim());
+                cm.setPrecio(precio.getText().toString().trim());
+                databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
+                Toast.makeText(getActivity(), "Actualizado", Toast.LENGTH_LONG).show();
+                limpiarCajar();
+            }
+        });
+
         listaFire .setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 materialSelected = (ClaseMaterial) parent.getItemAtPosition(position);
-                //Material.nombre.setText(materialSelected.getNombre());
+                nombre.setText(materialSelected.getNombre());
+                precio.setText(materialSelected.getPrecio());
             }
         });
 
@@ -106,12 +125,12 @@ public class Material extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
-        //METODO PARA VACIAR LOS EDITTEXT UNA VEZ GUARDADO
+        //METODO PARA VACIAR LOS EDITTEXT UNA VEZ UTILIZADOS
     private void limpiarCajar() {
         nombre.setText("");
         precio.setText("");
     }
-
+        //VALIDA QUE NO HALLA CAMPOS VACIOS
     private void validacion() {
         String v_nombre = nombre.getText().toString();
         String v_precio = precio.getText().toString();
