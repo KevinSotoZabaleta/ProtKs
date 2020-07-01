@@ -85,12 +85,11 @@ public class Material extends Fragment {
                     cm.setNombre(v_nombre);
                     cm.setPrecio(v_precio);
                     databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
-                    Toast.makeText(getActivity(), "Guardar", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Registrado", Toast.LENGTH_LONG).show();
                     limpiarCajar();
                 }
             }
         });
-
         //EVENTO ONCLICK DEL BOTON ACTUALIZAR
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +100,17 @@ public class Material extends Fragment {
                 cm.setPrecio(precio.getText().toString().trim());
                 databaseReference.child("ClaseMaterial").child(cm.getId()).setValue(cm);
                 Toast.makeText(getActivity(), "Actualizado", Toast.LENGTH_LONG).show();
+                limpiarCajar();
+            }
+        });
+        //EVENTO ONCLICK DEL BOTON ELIMINAR
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClaseMaterial cm = new ClaseMaterial();
+                cm.setId(materialSelected.getId());
+                databaseReference.child("ClaseMaterial").child(cm.getId()).removeValue();
+                Toast.makeText(getActivity(), "Eliminado", Toast.LENGTH_LONG).show();
                 limpiarCajar();
             }
         });
