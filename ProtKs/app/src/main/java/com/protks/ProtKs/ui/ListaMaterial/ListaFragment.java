@@ -58,6 +58,8 @@ public class ListaFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 materialSelected = (ClaseMaterial) parent.getItemAtPosition(position);
                 //Material.nombre.setText(materialSelected.getNombre());
+
+
             }
         });
 
